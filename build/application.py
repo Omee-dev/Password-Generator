@@ -1,0 +1,37 @@
+from Domain import Password
+from tkinter import *
+root = Tk()
+root.geometry("301x216")
+root.iconbitmap("D:\Learn-Testing\Application\Password Generator\icon.ico")
+root.resizable(0,0)
+Label(root,text="Password Size").place(x=20,y=30)
+text = StringVar()
+size = StringVar()
+size.set(20)
+sz = Entry(root,textvariable=size).place(x=120,y=30)
+def process():
+    obj = Password(int(size.get()),luds=[l.get(),u.get(),d.get(),s.get()])
+    text.set(obj.give_password())
+    T = Entry(root,textvariable=text,font="Consolas 12",width=25,bg='#ff9933',state="readonly").place(x=38,y=150)
+l = BooleanVar(value=True)
+u = BooleanVar(value=True)
+d = BooleanVar(value=True)
+s = BooleanVar(value=True)
+lower = Checkbutton(text="Lowercase",variable=l).place(x=20,y=50)
+upper = Checkbutton(text="Uppercase",variable=u).place(x=20,y=70)
+digits = Checkbutton(text="Numerics",variable=d).place(x=20,y=90)
+special = Checkbutton(text="Special Characters",variable=s).place(x=20,y=110)
+Generate = Button(text="Generate",width=13,command=process).place(x=0,y=190)
+def copy(t):
+    #if text.get() == None:
+        #m=Message(text="Nothing to copy")
+        #return m.pack()
+    root.clipboard_clear()
+    root.clipboard_append(t)
+    #m=Message(text="Copied to Clipboard")
+    #return m.pack()
+Copier = Button(text="Copy",width=13,command=lambda:copy(text.get())).place(x=100,y=190)
+Quit = Button(text="Quit",width=13,command=root.destroy).place(x=200,y=190)
+root.title("Password Generator")
+
+root.mainloop()
